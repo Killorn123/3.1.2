@@ -15,6 +15,7 @@ import java.util.HashSet;
 import java.util.Set;
 
 @Controller
+@RequestMapping("/admin")
 
 public class AdminController {
     private final UserService userService;
@@ -27,7 +28,7 @@ public class AdminController {
 
     }
 
-    @GetMapping(value = "/admin")
+    @GetMapping
     public String listUsers(@AuthenticationPrincipal User user, Model model) {
         model.addAttribute("user", user);
         model.addAttribute("allUsers", userService.getAllUsers());
@@ -35,14 +36,14 @@ public class AdminController {
         return "adminpage";
     }
 
-    @GetMapping(value = "/admin/new")
+    @GetMapping(value = "/new")
     public String newUser(Model model) {
         model.addAttribute("user", new User());
         model.addAttribute("roles", roleService.getAllRoles());
         return "new";
     }
 
-    @PostMapping(value = "/admin/add-user")
+    @PostMapping(value = "/add-user")
     public String addUser(@ModelAttribute User user, @RequestParam(value = "checkBoxRoles") String[] checkBoxRoles) {
         Set<Role> roleSet = new HashSet<>();
         for (String role : checkBoxRoles) {
@@ -54,7 +55,7 @@ public class AdminController {
     }
 
 
-    @PostMapping(value = "/admin/edit/{id}")
+    @PostMapping(value = "/edit/{id}")
     public String editUser(@ModelAttribute User user, @RequestParam(value = "checkBoxRoles") String[] checkBoxRoles) {
         Set<Role> roleSet = new HashSet<>();
         for (String roles : checkBoxRoles) {
@@ -65,7 +66,7 @@ public class AdminController {
         return "redirect:/admin";
     }
 
-    @PostMapping (value = "/admin/{id}/delete")
+    @PostMapping (value = "/{id}/delete")
     public String removeUser(@PathVariable("id") long id) {
         System.out.println(id);
         userService.removeUserById(id);
