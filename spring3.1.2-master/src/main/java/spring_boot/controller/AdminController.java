@@ -45,11 +45,7 @@ public class AdminController {
 
     @PostMapping(value = "/add-user")
     public String addUser(@ModelAttribute User user, @RequestParam(value = "checkBoxRoles") String[] checkBoxRoles) {
-        Set<Role> roleSet = new HashSet<>();
-        for (String role : checkBoxRoles) {
-            roleSet.add(roleService.getRoleByName(role));
-        }
-        user.setRoles(roleSet);
+        user.setRoles(roleService.getRole(checkBoxRoles));
         userService.addUser(user);
         return "redirect:/admin";
     }
@@ -57,11 +53,7 @@ public class AdminController {
 
     @PostMapping(value = "/edit/{id}")
     public String editUser(@ModelAttribute User user, @RequestParam(value = "checkBoxRoles") String[] checkBoxRoles) {
-        Set<Role> roleSet = new HashSet<>();
-        for (String roles : checkBoxRoles) {
-            roleSet.add(roleService.getRoleByName(roles));
-        }
-        user.setRoles(roleSet);
+        user.setRoles(roleService.getRole(checkBoxRoles));
         userService.updateUser(user);
         return "redirect:/admin";
     }
