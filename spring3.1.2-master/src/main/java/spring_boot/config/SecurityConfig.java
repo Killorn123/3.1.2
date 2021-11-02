@@ -1,4 +1,4 @@
-package spring_boot.security;
+package spring_boot.config;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;

@@ -1,4 +1,4 @@
-package spring_boot.security;
+package spring_boot.config;
 
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.authority.AuthorityUtils;
